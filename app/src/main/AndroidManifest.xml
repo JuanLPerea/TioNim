@@ -13,6 +13,15 @@
         android:theme="@style/Theme.TioNim"
         tools:targetApi="31">
         <activity
+            android:name=".JuegoVsComActivity"
+            android:exported="false" />
+        <activity
+            android:name=".JuegoOnlineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".InfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
