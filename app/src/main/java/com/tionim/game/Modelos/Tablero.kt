@@ -3,7 +3,7 @@ package com.tionim.game.Modelos
 import java.util.Random
 
 
-class Tablero {
+class Tablero() {
 
     // En el tablero habrá un numero de montones de monedas aleatorio de 3 a 6
 
@@ -49,15 +49,6 @@ class Tablero {
         this.montonSeleccionado = montonSeleccionado
     }
 
-    fun getMontones(): List<Monton>? {
-        return montones
-    }
-
-
-    fun setMontones(montones: MutableList<Monton>?) {
-        this.montones = montones
-    }
-
     fun getNumMontones(): Int {
         return numMontones
     }
@@ -84,8 +75,7 @@ class Tablero {
                 newPalos.add(paloTmp)
             }
         }
-        getMontones()!![montonSeleccionado].setPalos(newPalos)
-
+        montones!!.get(montonSeleccionado).palos = newPalos
 
         // Si el montón está vacío, quitar también el montón
         if (montones!![montonSeleccionado].palos!!.size == 0) {
@@ -101,7 +91,7 @@ class Tablero {
 
     fun renumerarMontones() {
         for (n in montones!!.indices) {
-            montones!![n].setNumeroMonton(n)
+            montones!![n].numeroMonton = n
         }
     }
 

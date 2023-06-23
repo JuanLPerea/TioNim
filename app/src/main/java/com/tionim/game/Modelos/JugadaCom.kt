@@ -44,7 +44,7 @@ class JugadaCom {
             for (montonTmp in tablero.montones!!) {
                 if (montonTmp.palos!!.size > 1) {
                     numeroDeMontonesConMasDeUnPalo++
-                    montonConMasDeUnPalo = montonTmp.getNumeroMonton()
+                    montonConMasDeUnPalo = montonTmp.numeroMonton
                 }
             }
             Log.d(

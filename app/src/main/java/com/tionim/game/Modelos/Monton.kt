@@ -33,14 +33,6 @@ class Monton(n: Int, level: Int) {
 
     fun Monton() {}
 
-    fun getNumeroMonton(): Int {
-        return numeroMonton
-    }
-
-    fun setNumeroMonton(numeroMonton: Int) {
-        this.numeroMonton = numeroMonton
-    }
-
 
     fun getPalosseleccionados(): Int {
         var palosSeleccionados = 0
