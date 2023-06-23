@@ -114,10 +114,6 @@ class MainActivity : AppCompatActivity() {
         val dato = myRef.child(("datos")).values<String>()
 
 
-        val texto = findViewById(R.id.texto) as TextView
-
-        texto.text = dato.toString()
-
         myRef.addValueEventListener(object : ValueEventListener {
           override fun onDataChange(dataSnapshot: DataSnapshot) {
               val dato = dataSnapshot.value
