@@ -94,8 +94,8 @@ class UtilsFirebase {
 
             //Subimos nuestro avatar a Firebase (Aquí es seguro que tenemos internet)
             subirImagenFirebase(
-                jugador.getJugadorId(),
-                Utilidades.recuperarImagenMemoriaInterna(context!!, jugador.getJugadorId())!!
+                jugador.jugadorId,
+                Utilidades.recuperarImagenMemoriaInterna(context!!, jugador.jugadorId)!!
             )
 
             // Recuperar la lista de records guardada en Firebase
@@ -109,13 +109,13 @@ class UtilsFirebase {
                     }
                     listaRecordsNueva.add(
                         Records(
-                            jugador.getJugadorId(),
-                            jugador.getNickname(),
-                            jugador.getVictorias(),
+                            jugador.jugadorId,
+                            jugador.nickname,
+                            jugador.victorias,
                             level
                         )
                     )
-                    listaRecordsNueva.sortBy { jugador.getVictorias() }
+                    listaRecordsNueva.sortBy { jugador.victorias }
 
                     // Guardamos en Firebase
                     for (n in listaRecordsNueva.indices) {

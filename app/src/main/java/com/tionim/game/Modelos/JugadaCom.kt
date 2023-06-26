@@ -49,7 +49,7 @@ class JugadaCom {
             }
             Log.d(
                 Constantes.TAG,
-                "Quedan " + numeroDeMontonesConMasDeUnPalo + " Montones con mas de 1 palo. Total Montones: " + tablero.getNumMontones()
+                "Quedan " + numeroDeMontonesConMasDeUnPalo + " Montones con mas de 1 palo. Total Montones: " + tablero.montones!!.size
             )
 
             // Hay 3 casos:

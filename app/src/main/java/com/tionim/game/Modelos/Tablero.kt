@@ -3,7 +3,7 @@ package com.tionim.game.Modelos
 import java.util.Random
 
 
-class Tablero() {
+class Tablero(level: Int) {
 
     // En el tablero habrá un numero de montones de monedas aleatorio de 3 a 6
 
@@ -17,7 +17,7 @@ class Tablero() {
     private var montonSeleccionado = 0
 
     // Constructor generamos un nuevo tablero con montones y monedas aleatoriamente
-    fun Tablero(level: Int) {
+    init {
         val r = Random()
 
         //this.numMontones = r.nextInt(MAX_MONTONES - MIN_MONTONES) + MIN_MONTONES;
@@ -40,22 +40,6 @@ class Tablero() {
     }
 
     fun Tablero() {}
-
-    fun getMontonSeleccionado(): Int {
-        return montonSeleccionado
-    }
-
-    fun setMontonSeleccionado(montonSeleccionado: Int) {
-        this.montonSeleccionado = montonSeleccionado
-    }
-
-    fun getNumMontones(): Int {
-        return numMontones
-    }
-
-    fun setNumMontones(numMontones: Int) {
-        this.numMontones = numMontones
-    }
 
     fun palosSeleccionadosTotal(): Int {
         var totalPalosSeleccionados = 0
