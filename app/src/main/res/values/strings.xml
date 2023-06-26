@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Palitrokes</string>
+    <string name="app_name">Tio Nim</string>
     <string name="explicacion">El que se quede con el último palo pierde!!</string>
     <string name="fallo_auth">Fallo en la autenticación</string>
     <string name="jugador">Jugador</string>
@@ -35,7 +35,7 @@
     <string name="unpalo">Debes dejar al menos 1 palo y ganas!!!</string>
     <string name="abandono">"Ha habido abandono ... "</string>
     <string name="win">Has Ganado ¡Enhorabuena!</string>
-    <string name="resultado">"Gana Palitrokes. Has alcanzado el nivel "</string>
+    <string name="resultado">"Gana el Tío Nim. Has alcanzado el nivel "</string>
     <string name="perdido">Lo siento has perdido!!</string>
     <string name="palabrota">No puedes utilizar esta palabra!!</string>
     <string name="noplayers">No hay jugadores online disponibles para jugar</string>

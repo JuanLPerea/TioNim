@@ -17,9 +17,8 @@ import com.tionim.game.Utilidades.Utilidades
 import java.util.Random
 
 class RecordsAdapter(context: Context?, records: MutableList<Records>) : RecyclerView.Adapter<RecordsAdapter.AdapterViewHolder>(){
-    private var records: MutableList<Records>? = null
-    private var context: Context? = null
-
+     var records: MutableList<Records>? = records
+     var context: Context? = context
 
     fun RecordsAdapter() {}
 

@@ -168,11 +168,7 @@ class MainActivity : AppCompatActivity() {
         jugador = Jugador("","")
 
         // Pedir permisos para las fotos y avatares
-
-        // Pedir permisos para las fotos y avatares
         ActivityCompat.requestPermissions(this, PERMISOS, Constantes.CODIGO_PETICION_PERMISOS)
-
-        // Recuperamos los datos del Shared Preferences
 
         // Recuperamos los datos del Shared Preferences
         recuperarDatosSharedPreferences()
