@@ -1,6 +1,6 @@
 package com.tionim.game.Modelos
 
-class Records(jugadorId: String?, nickname: String?, victorias: Int, level: Int)  {
+class Records(jugadorId: String? = "", nickname: String? = "", victorias: Int = 0, level: Int = 0)  {
 
      var idJugador: String? = null
      var nickname: String? = null

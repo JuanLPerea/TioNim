@@ -161,7 +161,7 @@ class MainActivity : AppCompatActivity() {
         partidaActualizacion = Partida("",0,"","",Tablero(1),0)
 
         // Recycler View para los Records
-        records = java.util.ArrayList()
+        records = mutableListOf()
         adapter = RecordsAdapter(applicationContext, records!!)
         recordsRecycler!!.setAdapter(adapter)
 
@@ -172,27 +172,6 @@ class MainActivity : AppCompatActivity() {
 
         // Recuperamos los datos del Shared Preferences
         recuperarDatosSharedPreferences()
-
-        /*
-        val database = FirebaseDatabase.getInstance("https://tionim-8fedb-default-rtdb.europe-west1.firebasedatabase.app")
-        val myRef = database.getReference("datos")
-        myRef.setValue(("Hola mundo"))
-
-        val dato = myRef.child(("datos")).values<String>()
-
-
-        myRef.addValueEventListener(object : ValueEventListener {
-          override fun onDataChange(dataSnapshot: DataSnapshot) {
-              val dato = dataSnapshot.value
-              Log.d("Miapp" , dato.toString())
-          }
-            override fun onCancelled(error : DatabaseError) {
-                Log.d("Miapp" , error.toString())
-            }
-        } )
-
-*/
-
 
     }
 
@@ -217,6 +196,7 @@ class MainActivity : AppCompatActivity() {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(Constantes.TAG, "signInAnonymously:success")
                             val user: FirebaseUser? = mAuth!!.getCurrentUser()
+                            cargarRecords()
                             endSignIn(user!!)
                         } else {
                             // If sign in fails, display a message to the user.
@@ -230,6 +210,7 @@ class MainActivity : AppCompatActivity() {
                         }
                     })
         }
+
     }
 
     private fun endSignIn(currentUser: FirebaseUser?) {
@@ -290,7 +271,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         userRef!!.addListenerForSingleValueEvent(userListener)
-        cargarRecords()
+
 
 
         // Hacemos una lista con las partidas existentes
@@ -1026,7 +1007,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTick(millisUntilFinished: Long) {
                 val rnd = Random()
                 val name = "pic" + (rnd.nextInt(116) + 34)
-                val resource = resources.getIdentifier(name, "drawable", "com.game.palitrokes")
+                val resource = resources.getIdentifier(name, "drawable", "com.tionim.game")
                 palitrokesIV!!.setImageDrawable(null)
                 palitrokesIV!!.setImageResource(resource)
             }
@@ -1065,11 +1046,10 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun cargarRecords() {
-
         // Cargar los records y mostrarlos en el Recycler
-        recordsRef = FirebaseDatabase.getInstance().reference.child("RECORDS")
-        val cargarRecords: ValueEventListener = object : ValueEventListener {
-            override fun onDataChange(@NonNull dataSnapshot: DataSnapshot) {
+        recordsRef = FirebaseDatabase.getInstance("https://tionim-8fedb-default-rtdb.europe-west1.firebasedatabase.app").getReference("RECORDS")
+        recordsRef!!.addListenerForSingleValueEvent( object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var n = 0
                 records!!.removeAll(records!!)
                 for (snapshot in dataSnapshot.children) {
@@ -1077,20 +1057,15 @@ class MainActivity : AppCompatActivity() {
                     records!!.add(recordTmp!!)
                     // Descargamos imagen de Firebase y la guardamos en el dispositivo para usarla mas tarde
                     Utilidades.eliminarArchivo(applicationContext, "RECORDIMG$n.jpg")
-                    UtilsFirebase.descargarImagenFirebaseYGuardarla(
-                        applicationContext,
-                        recordTmp!!.idJugador
-                    )
+                    UtilsFirebase.descargarImagenFirebaseYGuardarla(applicationContext, recordTmp!!.idJugador)
                     n++
                 }
                 adapter!!.notifyDataSetChanged()
                 // Guardamos los records actualizados de Firebase en el Shared Preferences
                 SharedPrefs.saveRecordsPrefs(applicationContext, records!!)
             }
-
             override fun onCancelled(@NonNull databaseError: DatabaseError) {}
-        }
-        recordsRef!!.addListenerForSingleValueEvent(cargarRecords)
+        })
     }
 
     private fun bgm() {

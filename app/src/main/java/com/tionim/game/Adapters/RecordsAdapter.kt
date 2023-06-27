@@ -20,6 +20,11 @@ class RecordsAdapter(context: Context?, records: MutableList<Records>) : Recycle
      var records: MutableList<Records>? = records
      var context: Context? = context
 
+    init {
+        this.context = context
+        this.records = mutableListOf()
+    }
+
     fun RecordsAdapter() {}
 
     override fun onCreateViewHolder(@NonNull viewGroup: ViewGroup, i: Int): AdapterViewHolder {
@@ -31,28 +36,29 @@ class RecordsAdapter(context: Context?, records: MutableList<Records>) : Recycle
     override fun onBindViewHolder(@NonNull holder: AdapterViewHolder, i: Int) {
         val recordRow: Records = records!![i]
 
-        // UtilsFirebase.descargarImagenFirebaseYGuardarla(recordRow.getIdJugador(), holder.avatarRecord);
-        //Cargar imagen de los records siempre de los archivos guardados en memoria interna
-        // Estos archivos se actualizan cuando se descargan de Firebase al producirse el evento OnDataChange en los Records
-        val imagenRecord: Bitmap =
-            Utilidades.recuperarImagenMemoriaInterna(context!!, recordRow.idJugador)!!
-        if (imagenRecord != null && recordRow.idJugador !== "idJugador") {
-            holder.avatarRecord.setImageBitmap(imagenRecord)
-        } else {
-            holder.avatarRecord.setImageResource(R.drawable.picture)
-        }
-        holder.nickRecord.setText(recordRow.nickname)
-        holder.levelRecord.setText(recordRow.level.toString())
-        holder.victoriasRecord.setText(recordRow.victorias.toString())
-        val rnd = Random()
-        holder.linearLayout.setBackgroundColor(
-            Color.argb(
-                255,
-                rnd.nextInt(20) + 194,
-                rnd.nextInt(20) + 113,
-                rnd.nextInt(20) + 71
+        if (recordRow.idJugador != null) {
+            // UtilsFirebase.descargarImagenFirebaseYGuardarla(recordRow.getIdJugador(), holder.avatarRecord);
+            //Cargar imagen de los records siempre de los archivos guardados en memoria interna
+            // Estos archivos se actualizan cuando se descargan de Firebase al producirse el evento OnDataChange en los Records
+            val imagenRecord: Bitmap = Utilidades.recuperarImagenMemoriaInterna(context!!, recordRow.idJugador)!!
+            if (imagenRecord != null && recordRow.idJugador !== "idJugador") {
+                holder.avatarRecord.setImageBitmap(imagenRecord)
+            } else {
+                holder.avatarRecord.setImageResource(R.drawable.picture)
+            }
+            holder.nickRecord.setText(recordRow.nickname)
+            holder.levelRecord.setText(recordRow.level.toString())
+            holder.victoriasRecord.setText(recordRow.victorias.toString())
+            val rnd = Random()
+            holder.linearLayout.setBackgroundColor(
+                Color.argb(
+                    255,
+                    rnd.nextInt(20) + 194,
+                    rnd.nextInt(20) + 113,
+                    rnd.nextInt(20) + 71
+                )
             )
-        )
+        }
     }
 
     override fun getItemCount(): Int {
