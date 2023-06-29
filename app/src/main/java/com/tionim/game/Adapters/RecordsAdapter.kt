@@ -3,6 +3,7 @@ package com.tionim.game.Adapters
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tionim.game.Modelos.Records
 import com.tionim.game.R
 import com.tionim.game.Utilidades.Utilidades
+import java.lang.Exception
 import java.util.Random
 
 class RecordsAdapter(context: Context?, records: MutableList<Records>) : RecyclerView.Adapter<RecordsAdapter.AdapterViewHolder>(){
@@ -22,30 +24,33 @@ class RecordsAdapter(context: Context?, records: MutableList<Records>) : Recycle
 
     init {
         this.context = context
-        this.records = mutableListOf()
+        this.records = records
     }
 
-    fun RecordsAdapter() {}
 
-    override fun onCreateViewHolder(@NonNull viewGroup: ViewGroup, i: Int): AdapterViewHolder {
-        val v: View =
-            LayoutInflater.from(viewGroup.context).inflate(R.layout.row_records, viewGroup, false)
+    override fun onCreateViewHolder( viewGroup: ViewGroup, i: Int): AdapterViewHolder {
+        val v: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.row_records, viewGroup, false)
+        Log.d("Depurar" , "Creado View Holder")
         return AdapterViewHolder(v)
     }
 
-    override fun onBindViewHolder(@NonNull holder: AdapterViewHolder, i: Int) {
+    override fun onBindViewHolder(holder: AdapterViewHolder, i: Int) {
         val recordRow: Records = records!![i]
-
+        Log.d("Depurar" , "bind: " + recordRow.nickname)
         if (recordRow.idJugador != null) {
             // UtilsFirebase.descargarImagenFirebaseYGuardarla(recordRow.getIdJugador(), holder.avatarRecord);
             //Cargar imagen de los records siempre de los archivos guardados en memoria interna
             // Estos archivos se actualizan cuando se descargan de Firebase al producirse el evento OnDataChange en los Records
-            val imagenRecord: Bitmap = Utilidades.recuperarImagenMemoriaInterna(context!!, recordRow.idJugador)!!
-            if (imagenRecord != null && recordRow.idJugador !== "idJugador") {
-                holder.avatarRecord.setImageBitmap(imagenRecord)
-            } else {
+
+            try {
+                val imagenRecord: Bitmap =
+                    Utilidades.recuperarImagenMemoriaInterna(context!!, recordRow.idJugador)!!
+                    holder.avatarRecord.setImageBitmap(imagenRecord)
+            } catch (e : Exception){
+                Log.d("Depurar" , "No hay imagen de usuario " + e.toString() )
                 holder.avatarRecord.setImageResource(R.drawable.picture)
             }
+
             holder.nickRecord.setText(recordRow.nickname)
             holder.levelRecord.setText(recordRow.level.toString())
             holder.victoriasRecord.setText(recordRow.victorias.toString())
@@ -62,10 +67,11 @@ class RecordsAdapter(context: Context?, records: MutableList<Records>) : Recycle
     }
 
     override fun getItemCount(): Int {
+        Log.d("Depurar" , "Adapter size: " + records!!.size.toString())
         return records!!.size
     }
 
-    class AdapterViewHolder(@NonNull itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class AdapterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var nickRecord: TextView
         var levelRecord: TextView
         var victoriasRecord: TextView
