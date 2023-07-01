@@ -30,13 +30,11 @@ class RecordsAdapter(context: Context?, records: MutableList<Records>) : Recycle
 
     override fun onCreateViewHolder( viewGroup: ViewGroup, i: Int): AdapterViewHolder {
         val v: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.row_records, viewGroup, false)
-        Log.d("Depurar" , "Creado View Holder")
         return AdapterViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: AdapterViewHolder, i: Int) {
         val recordRow: Records = records!![i]
-        Log.d("Depurar" , "bind: " + recordRow.nickname)
         if (recordRow.idJugador != null) {
             // UtilsFirebase.descargarImagenFirebaseYGuardarla(recordRow.getIdJugador(), holder.avatarRecord);
             //Cargar imagen de los records siempre de los archivos guardados en memoria interna

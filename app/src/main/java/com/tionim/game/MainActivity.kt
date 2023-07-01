@@ -644,7 +644,7 @@ class MainActivity : AppCompatActivity() {
         animacionTimer!!.cancel()
         mediaPlayer!!.stop()
         // finish();
-        Sonidos.play(Sonidos.Companion.Efectos.START)
+        Sonidos.play(Sonidos.Companion.Efectos.GANAR)
         startActivity(intentvscom)
     }
 

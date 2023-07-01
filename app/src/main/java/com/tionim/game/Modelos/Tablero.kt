@@ -13,8 +13,8 @@ class Tablero(level: Int) {
 
 
     var montones: MutableList<Monton>? = null
-    private var numMontones = 0
-    private var montonSeleccionado = 0
+    var numMontones = 0
+    var montonSeleccionado = 0
 
     // Constructor generamos un nuevo tablero con montones y monedas aleatoriamente
     init {

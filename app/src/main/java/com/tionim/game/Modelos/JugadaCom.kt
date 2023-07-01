@@ -169,11 +169,8 @@ class JugadaCom {
 
     fun esGanador(tablero: Tablero): Boolean {
         var esGanador = false
-
         // Analizar el tablero para saber si estamos en una posición ganadora o perdedora
         // ----------------------------------------------------------------------------------------------------
-
-
         // Convertir el número de palos de cada montón a binario y
         // Guardarlo en una lista de Strings
         for (montonTmp in tablero.montones!!) {
