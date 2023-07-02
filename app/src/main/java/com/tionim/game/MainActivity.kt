@@ -1053,7 +1053,7 @@ class MainActivity : AppCompatActivity() {
                 for (snapshot in dataSnapshot.children) {
                     val recordTmp = snapshot.getValue(Records::class.java)
                     records!!.add(recordTmp!!)
-                    Log.d("Depurar", recordTmp!!.nickname.toString())
+                  //  Log.d("Depurar", recordTmp!!.nickname.toString())
                     // Descargamos imagen de Firebase y la guardamos en el dispositivo para usarla mas tarde
                     Utilidades.eliminarArchivo(applicationContext, "RECORDIMG$n.jpg")
                     UtilsFirebase.descargarImagenFirebaseYGuardarla(applicationContext, recordTmp!!.idJugador)

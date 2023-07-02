@@ -55,7 +55,7 @@ class Tablero(level: Int) {
         val newPalos: MutableList<Palo> = ArrayList()
         newPalos.removeAll(newPalos)
         for (paloTmp in montones!![montonSeleccionado].palos!!) {
-            if (!paloTmp.isSeleccionado()) {
+            if (!paloTmp.seleccionado) {
                 newPalos.add(paloTmp)
             }
         }

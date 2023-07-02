@@ -2,7 +2,6 @@ package com.tionim.game.Modelos
 
 import java.util.Random
 
-
 class Monton(n: Int, level: Int) {
 
     val MAX_PALOS = 8
@@ -10,9 +9,12 @@ class Monton(n: Int, level: Int) {
     var palos: MutableList<Palo>? = null
     var numeroMonton = 0
 
+    init {
+        Monton(n, level)
+    }
 
     fun Monton(numeroMonton: Int, level: Int) {
-        palos = ArrayList<Palo>()
+        palos = mutableListOf()
         this.numeroMonton = numeroMonton
         val r = Random()
         // int numPalosAleat = r.nextInt(MAX_PALOS - MIN_PALOS) + MIN_PALOS;
@@ -31,26 +33,23 @@ class Monton(n: Int, level: Int) {
         }
     }
 
-    fun Monton() {}
-
-
     fun getPalosseleccionados(): Int {
         var palosSeleccionados = 0
         palos!!.forEach {palo ->
-            if (palo.isSeleccionado()) palosSeleccionados++
+            if (palo.seleccionado) palosSeleccionados++
         }
         return palosSeleccionados
     }
 
     fun deseleccionarTodo() {
         palos!!.forEach {palo ->
-            palo.setSeleccionado(false)
+            palo.seleccionado = (false)
         }
     }
 
     fun renumerarPalos() {
         for (n in palos!!.indices) {
-            palos!![n].setNumeroPalo(n)
+            palos!![n].numeroPalo = n
         }
     }
 

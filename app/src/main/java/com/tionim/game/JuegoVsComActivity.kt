@@ -183,14 +183,14 @@ class JuegoVsComActivity : AppCompatActivity() {
                     LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, alturaPalo)
                 params.setMargins(5, 0, 5, 5)
                 newImageView.layoutParams = params
-                if (paloTmp.isSeleccionado()) {
+                if (paloTmp.seleccionado) {
                     newImageView.alpha = 0.5f
                 } else {
                     newImageView.alpha = 1f
                 }
                 newImageView.setImageResource(R.drawable.palo)
                 newImageView.id = newId()
-                newImageView.tag = montonTMP.numeroMonton.toString() + "#" + paloTmp.getNumeroPalo()
+                newImageView.tag = montonTMP.numeroMonton.toString() + "#" + paloTmp.numeroPalo
                 newImageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
                 newImageView.setOnClickListener { seleccionarPalo(newImageView) }
                 montonLL.addView(newImageView)
@@ -201,10 +201,10 @@ class JuegoVsComActivity : AppCompatActivity() {
 
 
     private fun seleccionarPalo(imageView: ImageView) {
-        Log.d(Constantes.TAG, "Seleccionado palo " + imageView.id)
+      //  Log.d("Depurar", "Seleccionado palo " + imageView.id)
 
         // Si es nuestro actualizarViewsCambioTurno podemos seleccionar cosas en la pantalla...
-        if (partida!!.turno === jugador!!.numeroJugador) {
+        if (partida!!.turno == jugador!!.numeroJugador) {
             val montonTocado =
                 imageView.tag.toString().split("#".toRegex()).dropLastWhile { it.isEmpty() }
                     .toTypedArray()[0].toInt()
@@ -212,26 +212,26 @@ class JuegoVsComActivity : AppCompatActivity() {
                 imageView.tag.toString().split("#".toRegex()).dropLastWhile { it.isEmpty() }
                     .toTypedArray()[1].toInt()
 
-            //   Log.d(Constantes.TAG, "Palo tocado: " + montonTocado + "-" + paloTocado);
+              Log.d("Depurar", "Tag: " + imageView.tag +" - Palo tocado: " + montonTocado + "-" + paloTocado);
 
             // Si el palo que hemos tocado está en el mismo montón o no hay ningún montón seleccionado (-1)
             // Cambiamos el estado del palo entre seleccionado o no seleccionado
-            if (partida!!.tablero!!.montonSeleccionado === partida!!.tablero!!.montones!!.get(montonTocado).numeroMonton ||
-                partida!!.tablero!!.montonSeleccionado === -1
+            if (partida!!.tablero!!.montonSeleccionado == partida!!.tablero!!.montones!!.get(montonTocado).numeroMonton ||
+                partida!!.tablero!!.montonSeleccionado == -1
             ) {
                 if (partida!!.tablero!!.montones!!.get(montonTocado).palos!!.get(paloTocado)
-                        .isSeleccionado()
+                        .seleccionado
                 ) {
                     partida!!.tablero!!.montones!!.get(montonTocado).palos!!.get(paloTocado)
-                        .setSeleccionado(false)
+                        .seleccionado = (false)
                     if (partida!!.tablero!!.montones!!.get(montonTocado)
-                            .getPalosseleccionados() === 0
+                            .getPalosseleccionados() == 0
                     ) {
                         partida!!.tablero!!.montonSeleccionado = (-1)
                     }
                 } else {
                     partida!!.tablero!!.montones!!.get(montonTocado).palos!!.get(paloTocado)
-                        .setSeleccionado(true)
+                        .seleccionado = (true)
                     partida!!.tablero!!.montones!!.get(montonTocado)
                         .numeroMonton = (montonTocado)
                     partida!!.tablero!!.montonSeleccionado = (montonTocado)
@@ -267,7 +267,7 @@ class JuegoVsComActivity : AppCompatActivity() {
 
             2 -> {
                 // Es el turno del jugador 2
-                if (jugador!!.numeroJugador === 1) {
+                if (jugador!!.numeroJugador == 1) {
                     // si somos el jugador 1
                     okJ1!!.visibility =
                         View.INVISIBLE //Botón del jugador 1 invisible (No hay botón en ningun lado porque el turno es del otro)
@@ -290,7 +290,7 @@ class JuegoVsComActivity : AppCompatActivity() {
     fun okJugada(v: View?) {
         // No puede seleccionar todos los palos si solo queda 1 monton
         // Tiene que haber seleccionado al menos 1 palo
-        if (partida!!.tablero!!.palosSeleccionadosTotal() !== partida!!.tablero!!
+        if (partida!!.tablero!!.palosSeleccionadosTotal() != partida!!.tablero!!
                 .palosTotales()
         ) {
             if (partida!!.tablero!!.palosSeleccionadosTotal() > 0) {
@@ -299,7 +299,7 @@ class JuegoVsComActivity : AppCompatActivity() {
                 partida!!.tablero!!.eliminarSeleccionados()
                 Log.d(Constantes.TAG, "Aceptar jugada")
                 // comprobamos, si solo queda uno, hemos ganado!!
-                if (partida!!.tablero!!.palosTotales() === 1) {
+                if (partida!!.tablero!!.palosTotales() == 1) {
                     //    Toast.makeText(this, "¡¡Has Ganado!!", Toast.LENGTH_LONG).show();
                     avatarJ2!!.setImageResource(R.drawable.pic109)
                     Log.d(Constantes.TAG, getString(R.string.ganador) + partida!!.turno)
@@ -330,7 +330,7 @@ class JuegoVsComActivity : AppCompatActivity() {
         if (partida!!.ganador == 0) {
             partida!!.turnoToggle()
             actualizarViewsCambioTurno()
-            if (partida!!.turno === 2) {
+            if (partida!!.turno == 2) {
                 Log.d(Constantes.TAG, "Turno del ordenador")
                 //  Pasar el tablero a la Clase
                 //  JugadaCom Nos devuelve un String con la
@@ -363,7 +363,7 @@ class JuegoVsComActivity : AppCompatActivity() {
             // Si solo es un palo lo que va a quitar no hacemos lo del crono
             cambiarImagenPalitrokes()
             partida!!.tablero!!.montones!!.get(montonEnJuego).palos!!.get(palosQuitados)
-                .setSeleccionado(true)
+                .seleccionado = (true)
             Sonidos.play(Sonidos.Companion.Efectos.TICK)
             val pausaVerJugada: CountDownTimer = object : CountDownTimer(1000, 1000) {
                 override fun onTick(millisUntilFinished: Long) {
@@ -391,7 +391,7 @@ class JuegoVsComActivity : AppCompatActivity() {
                     if (palosQuitados < palosAQuitar) {
                         cambiarImagenPalitrokes()
                         partida!!.tablero!!.montones!!.get(montonEnJuego).palos!!
-                            .get(palosQuitados).setSeleccionado(true)
+                            .get(palosQuitados).seleccionado = (true)
                         palosQuitados++
                         Sonidos.play(Sonidos.Companion.Efectos.TICK)
                         visualizarTablero(partida!!.tablero!!)
@@ -419,7 +419,7 @@ class JuegoVsComActivity : AppCompatActivity() {
         Sonidos.play(Sonidos.Companion.Efectos.PLING)
         Log.d(Constantes.TAG, "Palos que quedan: " + partida!!.tablero!!.palosTotales())
         // Detectar si solo queda 1 palo, le queda al jugador y ...
-        if (partida!!.tablero!!.palosTotales() === 1) {
+        if (partida!!.tablero!!.palosTotales() == 1) {
             // Solo queda un palo. Ha ganado el ordenador
             partida!!.ganador = (2)
             finTurno()
@@ -454,7 +454,7 @@ class JuegoVsComActivity : AppCompatActivity() {
             resultado = getString(R.string.abandono)
         }
         Log.d(Constantes.TAG, "Ganador: " + partida!!.ganador)
-        if (partida!!.ganador === jugador!!.numeroJugador) {
+        if (partida!!.ganador == jugador!!.numeroJugador) {
             resultado += getString(R.string.win)
             Sonidos.play(Sonidos.Companion.Efectos.GANAR)
             siguienteNivel()
@@ -504,7 +504,7 @@ class JuegoVsComActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        if (partida!!.ganador === 0) {
+        if (partida!!.ganador == 0) {
             abandono = true
             finJuego()
         }
@@ -584,7 +584,7 @@ class JuegoVsComActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        if (partida!!.turno === 1) {
+        if (partida!!.turno == 1) {
             cronometro1!!.start()
         } else {
             cronometro2!!.start()

@@ -45,7 +45,7 @@ class RecordsAdapter(context: Context?, records: MutableList<Records>) : Recycle
                     Utilidades.recuperarImagenMemoriaInterna(context!!, recordRow.idJugador)!!
                     holder.avatarRecord.setImageBitmap(imagenRecord)
             } catch (e : Exception){
-                Log.d("Depurar" , "No hay imagen de usuario " + e.toString() )
+         //       Log.d("Depurar" , "No hay imagen de usuario " + e.toString() )
                 holder.avatarRecord.setImageResource(R.drawable.picture)
             }
 
@@ -65,7 +65,7 @@ class RecordsAdapter(context: Context?, records: MutableList<Records>) : Recycle
     }
 
     override fun getItemCount(): Int {
-        Log.d("Depurar" , "Adapter size: " + records!!.size.toString())
+       // Log.d("Depurar" , "Adapter size: " + records!!.size.toString())
         return records!!.size
     }
 
